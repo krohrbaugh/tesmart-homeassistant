@@ -1,8 +1,8 @@
 {
-    "name": "Integration blueprint",
-    "filename": "integration_blueprint.zip",
+    "name": "TESmart Integration",
+    "filename": "tesmart.zip",
     "hide_default_branch": true,
-    "homeassistant": "2023.8.0",
+    "homeassistant": "2024.2",
     "render_readme": true,
     "zip_release": true
 }

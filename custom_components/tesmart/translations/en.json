@@ -1,0 +1,23 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Add media switch by IP or hostname",
+                "data": {
+                    "name": "Name",
+                    "ip_address": "IP Address",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "name": "Device name (e.g., model or other identifier).",
+                    "ip_address": "IP address, or hostname of device.",
+                    "port": "TCP port used to communicate with device."
+                }
+            }
+        },
+        "error": {
+            "connection": "Unable to connect to the device.",
+            "unknown": "Unknown error occurred."
+        }
+    }
+}

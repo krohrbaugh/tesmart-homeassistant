@@ -1,47 +1,134 @@
-# Notice
+# TESmart Integration
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Activity][commits-shield]][commits]
+[![License][license-shield]](LICENSE)
 
-HAVE FUN! 😎
+![Project Maintenance][maintenance-shield]
 
-## Why?
+[![Community Forum][forum-shield]][forum]
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+_Home Assistant integration for [TESmart media switches][tesmart-integration] via
+TCP._
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+**This integration will set up the following platforms.**
 
-## What?
+Platform | Description
+-- | --
+`media_player` | Select media source.
 
-This repository contains multiple files, here is a overview:
+## Installation
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`.vscode/tasks.json` | Tasks for the devcontainer. | [Documentation](https://code.visualstudio.com/docs/editor/tasks)
-`custom_components/integration_blueprint/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements.txt` | Python packages used for development/lint/testing this integration. | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+### Prerequisites
 
-## How?
+Before installing the integration in Home Assistant (HA), you'll need to:
 
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `integration_blueprint` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
+1. Confirm that your TESmart switch uses [Hex protocol][hex] for its control
+protocol. This should be outlined in your device's manual.
+1. Ensure that your TESmart switch is assigned a static IP by your router.
+1. Ensure that your TESmart switch is configured to use that static IP. Most
+switches are _not_ configured to use [DHCP][dhcp] by default, and require
+configuring via software. This should also be outlined in your device's manual.
+1. Ensure that your TESmart switch is reachable via the IP that you have
+configured for it.
 
-## Next steps
+```sh
+ping $IP_OF_SWITCH
 
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon) to https://github.com/home-assistant/brands.
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to the [HACS](https://hacs.xyz/docs/publish/start).
+# Success :)
+# PING $IP_OF_SWITCH ($IP_OF_SWITCH): 56 data bytes
+# 64 bytes from $IP_OF_SWITCH: icmp_seq=0 ttl=100 time=1.139 ms
+# 64 bytes from $IP_OF_SWITCH: icmp_seq=1 ttl=100 time=1.121 ms
+
+# Failure :(
+# PING $IP_OF_SWITCH ($IP_OF_SWITCH): 56 data bytes
+# Request timeout for icmp_seq 0
+# Request timeout for icmp_seq 0
+```
+
+### Install the integration in Home Assistant
+
+#### HACS custom repo
+
+1. From the Home Assistant Community Store (HACS) page, click the triple-dot
+menu in the top-right, and select "Custom repositories".
+1. Enter the URL to this repository, and select "Integration" in the category
+drop-down. Click "Add".
+1. The window will reload and show "TESmart Integration" with a trash can next to
+it.  This means the custom repository has been added. Close the "Custom
+repositories" dialog.
+1. In the search box, enter "TESmart", and click on the integration to load the
+description.
+1. Click "Download" in the lower right corner, then confirm the download in the dialog
+that appears.
+1. The integration files should download to `custom_components/tesmart`.
+1. Restart Home Assistant to activate the integration.
+
+#### Manual install
+
+1. Using your tool of choice, open the directory (folder) for your HA
+configuration (where you find `configuration.yaml`).
+1. If you do not have a `custom_components` directory (folder) there, you need
+to create it.
+1. In the `custom_components` directory (folder) create a new folder called
+`tesmart`.
+1. Download _all_ the files from the `custom_components/tesmart/` directory
+(folder) in this repository.
+1. Place the files you downloaded in the new directory (folder) you created.
+1. Restart Home Assistant
+
+### Configuration of a device is done in the UI
+
+1. In the HA UI go to "Settings" -> "Devices & Services", then click "+ Add
+Integration" and search for "TESmart"
+1. Click on _TESmart_, and the device configuration form appears.
+1. Fill out the form, providing a name for the TESmart switch, and the IP address
+you configured for it.
+
+    <img src="/assets/images/configure.png" width="300">
+
+    **Figure 1:** New device configuration form.
+
+1. Click "Submit" to create the device. If successful, HA will ask what Area to assign the
+device to.
+
+## Device operation
+
+1. Click on the _TESmart_ integration to view configured devices.
+1. Click the device link under the name of the TESmart switch to view the device
+information page.
+
+    <img src="/assets/images/device_info.png" width="700">
+
+    **Figure 2:** Configured device information page.
+
+1. Click on the device name under the "Controls" section to show the source
+selection dialog. Select an input from the list and confirm that your switch
+changed inputs.
+
+    <img src="/assets/images/source_select.png" width="450">
+
+    **Figure 3:** Device source selection interface.
+
+Once you've confirmed that your switch is working correctly, consider adding
+source selection to some of your automations, such as part of a universal remote
+control activity.
+
+## Contributions welcome
+
+If you want to contribute to this please read the
+[Contribution guidelines](CONTRIBUTING.md).
+
+***
+
+[dhcp]: https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol
+[tesmart-integration]: https://github.com/krohrbaugh/tesmart-homeassistant
+[hex]: https://support.tesmart.com/hc/en-us/article_attachments/10269851662361
+[commits-shield]: https://img.shields.io/github/commit-activity/y/krohrbaugh/tesmart-homeassistant.svg?style=for-the-badge
+[commits]: https://github.com/krohrbaugh/tesmart-homeassistant/commits/main
+[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
+[forum]: https://community.home-assistant.io/
+[license-shield]: https://img.shields.io/github/license/krohrbaugh/tesmart-homeassistant.svg?style=for-the-badge
+[maintenance-shield]: https://img.shields.io/badge/maintainer-Kevin%20Rohrbaugh%20%40krohrbaugh-blue.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/krohrbaugh/tesmart-homeassistant.svg?style=for-the-badge
+[releases]: https://github.com/krohrbaugh/tesmart-homeassistant/releases
