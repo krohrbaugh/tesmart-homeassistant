@@ -1,5 +1,5 @@
 colorlog==6.8.2
-homeassistant==2024.4.1
+homeassistant>=2024.4.1
 pip>=21.0,<24.1
 pre-commit>=3.6.1
 pytest-homeassistant-custom-component>=0.13.101
