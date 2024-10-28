@@ -1,6 +1,6 @@
 colorlog==6.8.2
 homeassistant>=2024.6.0b0
-pip>=21.0,<24.3
+pip>=21.0,<24.4
 pre-commit>=3.6.1
 pytest-homeassistant-cusTom-component>=0.13.129
 ruff==0.7.0
