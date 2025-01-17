@@ -14,6 +14,7 @@ from .const import DOMAIN
 from .coordinator import TesmartDataUpdateCoordinator
 
 PLATFORMS: list[Platform] = [
+    Platform.BUTTON,
     Platform.MEDIA_PLAYER,
 ]
 

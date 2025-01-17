@@ -60,9 +60,9 @@ class TesmartConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
         config_input: TesmartConfigInput = user_input or {}
 
-        name: str = config_input.get(CONF_NAME, "")
-        ip_address: str = config_input.get(CONF_IP_ADDRESS, "")
-        port: int | None = config_input.get(CONF_PORT, None)
+        name: str = config_input.get(CONF_NAME, "TESMart Switch")
+        ip_address: str = config_input.get(CONF_IP_ADDRESS, "192.168.1.10")
+        port: int | None = config_input.get(CONF_PORT, "5000")
 
         if user_input is not None:
             try:
