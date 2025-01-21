@@ -89,6 +89,23 @@ class TesmartApiClient:
             LOGGER.warning(msg)
             raise TesmartApiClientError(msg) from exception
 
+    def set_buzzer_muting(self, mute_buzzer: bool) -> None:
+        """Configure button muting."""
+        self._device_io(self._device.set_buzzer_muting, mute_buzzer)
+
+    def set_led_timeout_seconds(self, led_timeout_seconds: int) -> None:
+        """Configure LED timeout."""
+        try:
+            self._device_io(self._device.set_led_timeout_seconds, led_timeout_seconds)
+        except ValueError as exception:
+            msg = f"Invalid timeout setting '{led_timeout_seconds}'."
+            LOGGER.warning(msg)
+            raise TesmartApiClientError(msg) from exception
+
+    def set_auto_input_detection(self, enable_auto_input_detection: bool) -> None:
+        """Configure auto input detection."""
+        self._device_io(self._device.set_auto_input_detection, enable_auto_input_detection)
+
     @property
     def state(self) -> TesmartApiState:
         """Current device state serialized to a dictionary."""

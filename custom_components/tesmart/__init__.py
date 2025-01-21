@@ -15,6 +15,8 @@ from .coordinator import TesmartDataUpdateCoordinator
 
 PLATFORMS: list[Platform] = [
     Platform.MEDIA_PLAYER,
+    Platform.SELECT,
+    Platform.SWITCH,
 ]
 
 # https://developers.home-assistant.io/docs/config_entries_index/#setting-up-an-entry
