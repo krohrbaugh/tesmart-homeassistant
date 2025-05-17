@@ -2,7 +2,7 @@
     "name": "TESmart Integration",
     "filename": "tesmart.zip",
     "hide_default_branch": true,
-    "homeassistant": "2024.4",
+    "homeassistant": "2025.1",
     "render_readme": true,
     "zip_release": true
 }
