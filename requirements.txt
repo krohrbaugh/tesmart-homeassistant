@@ -3,6 +3,6 @@ homeassistant>=2024.6.0b0
 pip>=21.0,<25.4
 pre-commit>=3.6.1
 pytest-homeassistant-cusTom-component>=0.13.129
-ruff==0.14.2
+ruff==0.14.3
 
 teeheesmart==0.9.0
